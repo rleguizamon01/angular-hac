@@ -4,6 +4,7 @@ import { ApiService } from 'src/app/core/services/api.service';
 import { PropertySurveyPagination } from 'src/app/interfaces/property-survey-pagination';
 import { PropertySurveyStatus } from 'src/app/interfaces/property-survey-status';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
+import { NzModalService } from 'ng-zorro-antd/modal';
 
 
 @Component({
@@ -25,7 +26,10 @@ export class PropertySurveyListComponent implements OnInit {
   q = "";
   status: string = "";
 
-  constructor(private api: ApiService) { 
+  constructor(
+    private api: ApiService,
+    private modal: NzModalService
+    ) { 
   }
 
   ngOnInit() {
@@ -88,6 +92,19 @@ export class PropertySurveyListComponent implements OnInit {
     .subscribe(propertySurvey => {
       console.log(propertySurvey);
       this.getPropertySurveysPaginated();
+    });
+  }
+
+  showDeleteConfirm(id: number): void {
+    this.modal.confirm({
+      nzTitle: '¿Seguro desea borrar el relevamiento?',
+      //nzContent: '<b style="color: red;">Some descriptions</b>',
+      nzOkText: 'Sí',
+      nzOkType: 'primary',
+      nzOkDanger: true,
+      nzOnOk: () => this.deletePropertySurvey(id),
+      nzCancelText: 'No',
+      nzOnCancel: () => console.log('Cancelar')
     });
   }
 

@@ -106,7 +106,7 @@
 
                 <!-- Borrar -->
                 <li *ngIf="!propertySurvey.deleted_at" nz-menu-divider></li>
-                <li *ngIf="!propertySurvey.deleted_at" nz-menu-item (click)="deletePropertySurvey(propertySurvey.id)">
+                <li *ngIf="!propertySurvey.deleted_at" nz-menu-item (click)="showDeleteConfirm(propertySurvey.id)">
                   <i nz-icon nzType="delete" nzTheme="outline" class="dropdown-icon"></i>
                   Borrar
                 </li>
