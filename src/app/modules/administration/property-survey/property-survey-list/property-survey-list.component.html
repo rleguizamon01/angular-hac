@@ -2,9 +2,12 @@
 <div class="content">
 
   <!-- Title -->
-  <div>
-    <h1> Mis relevamientos</h1>
-  </div>
+  <app-header-title-button
+    title="Mis relevamientos"
+    buttonText="Nueva orden"
+    buttonRoute="./create"
+    iconType="plus"
+  ></app-header-title-button>
 
   <div class="wrapper">
 
@@ -12,11 +15,13 @@
     <div id="filters-bar">
 
       <div id="filter-left">
-        <input nz-input placeholder="Buscar" nzSize="default" #q (keyup)="filterAddress(q.value)"/>
+        <nz-input-group nzPrefixIcon="search">
+          <input nz-input placeholder="Buscar" nzSize="default" #q (keyup)="filterAddress(q.value)"/>
+        </nz-input-group>
       </div>
 
       <div id="filter-right">
-        <label id="status-text">Estado</label>
+        <span nz-typography id="status-text"><strong>Estado</strong></span>
         <nz-select id="filter-select" (ngModelChange)="filterStatus($event)" [(ngModel)]="status" nzAutoFocus="true">
           <nz-option nzValue="" nzLabel="Todos"></nz-option>
           <nz-option *ngFor="let status of propertySurveyStatuses" [nzValue]="status.id" [nzLabel]="status.name"></nz-option>
@@ -60,7 +65,7 @@
             > ● 
             </span>
             <span>{{ propertySurvey.address }}</span> 
-            <div class="text-small">Creado: {{ propertySurvey.created_at | date:'dd-MM-yyyy hh:mm a' }}</div>
+            <div nz-typography nzType="secondary">Creado: {{ propertySurvey.created_at | date:'dd-MM-yyyy hh:mm a' }}</div>
           </td>
           <!-- Tipo -->
           <td>{{ propertySurvey.property_type.name }}</td>
@@ -74,7 +79,7 @@
           <!-- Estado -->
           <td>
             <span [style.fontSize.px]="18" [style.color]="propertySurvey.property_survey_status.color"> ● </span>
-            <span class="text-small">{{ propertySurvey.property_survey_status.name }}</span>
+            <span  nz-typography nzType="secondary">{{ propertySurvey.property_survey_status.name }}</span>
           </td>
 
           <!-- Dropdown Actions -->
@@ -99,7 +104,7 @@
 
                 <!-- Editar -->
                 <li *ngIf="!propertySurvey.deleted_at" nz-menu-divider></li>
-                <li *ngIf="!propertySurvey.deleted_at" nz-menu-item>
+                <li *ngIf="!propertySurvey.deleted_at" nz-menu-item [routerLink]="['./' + propertySurvey.id + '/edit']">
                   <i nz-icon nzType="edit" nzTheme="outline" class="dropdown-icon"></i>
                   Editar
                 </li>
