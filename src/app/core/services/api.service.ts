@@ -11,7 +11,7 @@ export class ApiService {
 
   constructor(private httpClient: HttpClient) { }
 
-  apiUri: string = 'http://localhost/homeandcheck/api-homeandcheck/public/api/';
+  apiUri: string = 'https://back-hac.herokuapp.com/api/';
 
   headers = new HttpHeaders().set(
     'Authorization',
