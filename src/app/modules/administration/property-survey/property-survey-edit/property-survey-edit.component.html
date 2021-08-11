@@ -1,3 +1,21 @@
-<p>
-  property-survey-edit works!
-</p>
+<!-- Top bar -->
+<app-top-bar 
+  text="{{'#' + propertySurvey.id}}"
+  iconType="edit"
+  buttonRouteBack="../../"
+  [showButton]="false"
+> </app-top-bar>
+
+<div class="content">
+  <!-- Title -->
+  <app-header-title-button
+    title="Editar"
+    [buttonShow]="false"
+  ></app-header-title-button>
+
+<app-listing-card [loading]="false">
+  En proceso
+
+</app-listing-card>
+
+</div>
