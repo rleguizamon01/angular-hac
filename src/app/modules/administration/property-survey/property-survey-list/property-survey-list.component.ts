@@ -63,7 +63,7 @@ export class PropertySurveyListComponent implements OnInit {
   }
 
   filterStatus(value: string){
-    this.status = value ;
+    this.status = value;
     this.pageIndex = 1;
     this.getPropertySurveysPaginated();
   }
@@ -72,6 +72,23 @@ export class PropertySurveyListComponent implements OnInit {
     console.log(value);
     this.pageIndex = value.pageIndex;
     this.getPropertySurveysPaginated();
+  }
+
+  deletePropertySurvey(id: number){
+    this.api.delete<PropertySurvey>('propertySurveys/' + id)
+    .subscribe(propertySurvey => {
+      console.log(propertySurvey);
+      this.getPropertySurveysPaginated();
+    });
+    
+  }
+
+  restorePropertySurvey(id: number){
+    this.api.post<PropertySurvey>('propertySurveys/' + id + '/restore', {})
+    .subscribe(propertySurvey => {
+      console.log(propertySurvey);
+      this.getPropertySurveysPaginated();
+    });
   }
 
 }

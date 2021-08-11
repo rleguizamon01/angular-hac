@@ -36,6 +36,7 @@ export class PropertySurveyDetailComponent implements OnInit {
       this.propertySurvey = propertySurvey; 
       if(this.propertySurvey.form_id != null)
         this.getPages()
+      console.log(this.propertySurvey)
     }); 
   }
 

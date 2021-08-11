@@ -49,13 +49,29 @@
 
       <tbody>
         <tr *ngFor="let propertySurvey of propertySurveys">
-          <td><div>{{ propertySurvey.address }}</div> <div class="text-small">Creado: {{ propertySurvey.created_at | date:'dd-MM-yyyy hh:mm a' }}</div></td>
+          <!-- Inmueble -->
+          <td>
+            <span 
+            *ngIf="propertySurvey.deleted_at" 
+            id="status-circle"
+            nz-tooltip 
+            nzTooltipTitle="{{ 'Eliminado el ' + (propertySurvey.deleted_at | date:'dd-MM-yyyy hh:mm a')}}"
+            [nzTooltipPlacement]="['topLeft', 'leftTop']"
+            > ● 
+            </span>
+            <span>{{ propertySurvey.address }}</span> 
+            <div class="text-small">Creado: {{ propertySurvey.created_at | date:'dd-MM-yyyy hh:mm a' }}</div>
+          </td>
+          <!-- Tipo -->
           <td>{{ propertySurvey.property_type.name }}</td>
+          <!-- Encargado -->
           <td>{{ propertySurvey.user.given_name + ' ' +propertySurvey.user.family_name }}</td>
+          <!-- Visita -->
           <td>
             <i nz-icon nzType="calendar" nzTheme="outline"></i>
             {{ propertySurvey.meeting_date | date:'dd-MM-yyyy hh:mm a' }}
           </td>
+          <!-- Estado -->
           <td>
             <span [style.fontSize.px]="18" [style.color]="propertySurvey.property_survey_status.color"> ● </span>
             <span class="text-small">{{ propertySurvey.property_survey_status.name }}</span>
@@ -68,31 +84,40 @@
             </a>
             <nz-dropdown-menu #menu="nzDropdownMenu">
               <ul nz-menu>
+                <!-- Ver ficha -->
                 <li nz-menu-item [routerLink]="['./', propertySurvey.id]">
                   <i nz-icon nzType="eye" nzTheme="outline" class="dropdown-icon"></i>
                   <span> Ver ficha </span>
-                </li>
+                </li>   
 
-                <li nz-menu-divider></li>
-
-                <li nz-menu-item>
+                <!-- Crear informe-->
+                <li *ngIf="!propertySurvey.deleted_at" nz-menu-divider></li>
+                <li *ngIf="!propertySurvey.deleted_at" nz-menu-item>
                   <i nz-icon nzType="form" nzTheme="outline" class="dropdown-icon"></i>
                   Crear informe
                 </li>
 
-                <li nz-menu-divider></li>
-
-                <li nz-menu-item>
+                <!-- Editar -->
+                <li *ngIf="!propertySurvey.deleted_at" nz-menu-divider></li>
+                <li *ngIf="!propertySurvey.deleted_at" nz-menu-item>
                   <i nz-icon nzType="edit" nzTheme="outline" class="dropdown-icon"></i>
                   Editar
                 </li>
 
-                <li nz-menu-divider></li>
-
-                <li nz-menu-item>
+                <!-- Borrar -->
+                <li *ngIf="!propertySurvey.deleted_at" nz-menu-divider></li>
+                <li *ngIf="!propertySurvey.deleted_at" nz-menu-item (click)="deletePropertySurvey(propertySurvey.id)">
                   <i nz-icon nzType="delete" nzTheme="outline" class="dropdown-icon"></i>
                   Borrar
                 </li>
+
+                <!-- Recuperar -->
+                <li *ngIf="propertySurvey.deleted_at" nz-menu-divider></li>
+                <li *ngIf="propertySurvey.deleted_at" nz-menu-item (click)="restorePropertySurvey(propertySurvey.id)">
+                  <i nz-icon nzType="rollback" nzTheme="outline" class="dropdown-icon"></i>
+                  Recuperar
+                </li>
+
               </ul>
             </nz-dropdown-menu>
             

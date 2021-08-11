@@ -13,6 +13,7 @@ export class TopBarComponent implements OnInit {
   @Input() buttonText: string = "";
   @Input() buttonRoute: string = "";
   @Input() buttonRouteBack: string = "";
+  @Input() showButton: boolean = true;
 
 
   constructor(private location: Location) { }

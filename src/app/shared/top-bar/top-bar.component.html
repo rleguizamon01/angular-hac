@@ -4,7 +4,7 @@
     <span id="main-text">{{ text }}</span>
   </div>
 
-  <div id="top-bar-right">
+  <div *ngIf="showButton" id="top-bar-right">
     <a routerLinkActive="active">
       <button nz-button nzSize="large" nzShape="round" nzType="default" [routerLink]="buttonRoute">
         <i nz-icon [nzType]="iconType"></i>
