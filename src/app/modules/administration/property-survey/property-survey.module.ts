@@ -8,6 +8,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { ApiService } from 'src/app/core/services/api.service';
 import { PropertySurveyEditComponent } from './property-survey-edit/property-survey-edit.component';
 import { FormsModule } from '@angular/forms';
+import { PropertySurveyCreateComponent } from './property-survey-create/property-survey-create.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { FormsModule } from '@angular/forms';
   declarations: [
     PropertySurveyListComponent,
     PropertySurveyDetailComponent,
-    PropertySurveyEditComponent
+    PropertySurveyEditComponent,
+    PropertySurveyCreateComponent
   ],
   providers: [
     ApiService
