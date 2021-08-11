@@ -3,6 +3,7 @@ import { PropertySurvey } from '../../../../interfaces/property-survey';
 import { ApiService } from 'src/app/core/services/api.service';
 import { PropertySurveyPagination } from 'src/app/interfaces/property-survey-pagination';
 import { PropertySurveyStatus } from 'src/app/interfaces/property-survey-status';
+import { NzTableQueryParams } from 'ng-zorro-antd/table';
 
 
 @Component({
@@ -29,7 +30,6 @@ export class PropertySurveyListComponent implements OnInit {
 
   ngOnInit() {
     this.getPropertySurveyStatuses();
-    this.getPropertySurveysPaginated();
   }
 
   getPropertySurveyStatuses(): void {
@@ -68,5 +68,10 @@ export class PropertySurveyListComponent implements OnInit {
     this.getPropertySurveysPaginated();
   }
 
+  changePage(value: NzTableQueryParams){
+    console.log(value);
+    this.pageIndex = value.pageIndex;
+    this.getPropertySurveysPaginated();
+  }
 
 }

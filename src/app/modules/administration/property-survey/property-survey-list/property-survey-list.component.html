@@ -34,7 +34,7 @@
       [nzTotal]="total"
       [nzPageSize]="pageSize"
       [nzPageIndex]="pageIndex"
-      (nzQueryParams)="getPropertySurveysPaginated();"
+      (nzQueryParams)="changePage($event)"
     >
       <thead>
         <tr>
