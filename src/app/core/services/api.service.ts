@@ -9,7 +9,8 @@ import { environment } from 'src/environments/environment';
 })
 export class ApiService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(
+    private httpClient: HttpClient) { }
 
   apiUri: string = 'https://back-hac.herokuapp.com/api/';
 
@@ -17,6 +18,7 @@ export class ApiService {
     'Authorization',
     `Bearer ${localStorage.getItem('token')}` || ''
   );
+
 
   get<T>(endpoint: string, params = {}): Observable<T>{
     return this.httpClient.get<T>(this.apiUri + endpoint, {
@@ -28,6 +30,12 @@ export class ApiService {
   post<T>(endpoint: string, data: any): Observable<T>{
     return this.httpClient.post<T>(this.apiUri + endpoint, data, {
       headers: this.headers,
+    });
+  }
+
+  delete<T>(endpoint: string): Observable<T>{
+    return this.httpClient.delete<T>(this.apiUri + endpoint, {
+      headers: this.headers.append('Accept', 'application/json'),
     });
   }
 
