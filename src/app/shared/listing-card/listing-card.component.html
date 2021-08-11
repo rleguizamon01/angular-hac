@@ -1,0 +1,6 @@
+<nz-card [nzTitle]="title" [nzExtra]="extraTemplate" [nzLoading]="loading">
+  <ng-template #extraTemplate>
+    <i id="icon" nz-icon [nzType]="iconType"></i>
+  </ng-template>
+  <ng-content></ng-content>
+</nz-card>

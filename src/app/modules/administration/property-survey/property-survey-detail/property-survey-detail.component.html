@@ -1,0 +1,233 @@
+<!-- Top bar -->
+<app-top-bar 
+  text={{propertySurvey.address}} 
+  iconType="edit"
+  buttonText="Editar"
+  buttonRoute="./edit"
+  buttonRouteBack="../"
+>
+    
+</app-top-bar>
+
+<div class="content">
+  <!-- Title -->
+  <div>
+    <h1>Visión General</h1>
+  </div>
+
+  <!-- Datos de la orden -->
+  <app-listing-card title="Datos de la orden" iconType="file-text" [loading]="loading">
+    <nz-table #basicTable nzTemplateMode="true">
+      <tbody>
+        <!-- Creado el -->
+        <tr class="table-row">
+          <td>
+            Creado el
+          </td>
+          <td>
+            {{ propertySurvey.created_at  | date:'dd-MM-yyyy hh:mm a' }}
+          </td>
+        </tr>
+        
+        <!-- Asignado a -->
+        <tr class="table-row">
+          <td>
+            Asignado a
+          </td>
+          <td>
+            {{ propertySurvey.user.given_name + propertySurvey.user.family_name }}
+          </td>
+        </tr>
+
+        <!-- Visita -->
+        <tr class="table-row">
+          <td>
+            Visita
+          </td>
+          <td>
+            <i nz-icon nzType="calendar" nzTheme="outline"></i>
+            {{ propertySurvey.meeting_date | date:'dd-MM-yyyy hh:mm a' }}
+          </td>
+        </tr>
+
+        <!-- Contacto -->
+        <tr class="table-row" id="table-row-last">
+          <td>
+            Contacto
+          </td>
+          <td>
+            {{ propertySurvey.contact }}
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </app-listing-card>
+
+  <!-- Locacion del inmueble -->
+  <app-listing-card title="Locación del inmueble" iconType="environment" [loading]="loading">
+    <p id="location">
+      {{ propertySurvey.address }}
+    </p>
+  </app-listing-card>
+
+  <!-- Datos generales del inmueble -->
+  <app-listing-card title="Datos generales del inmueble" iconType="home" [loading]="loading">
+    <nz-table #basicTable nzTemplateMode="true">
+      <tbody>
+        <!-- Tipo -->
+        <tr class="table-row">
+          <td>
+            Tipo
+          </td>
+          <td>
+            {{ propertySurvey.property_type.name }}
+          </td>
+        </tr>
+        
+        <!-- Tipología -->
+        <tr class="table-row">
+          <td>
+            Tipología
+          </td>
+          <td>
+            {{ propertySurvey.typology ? propertySurvey.typology : '-'}}
+          </td>
+        </tr>
+
+        <!-- Superficie descubierta -->
+        <tr class="table-row">
+          <td>
+            Superficie descubierta
+          </td>
+          <td>
+            {{ propertySurvey.uncovered_surface ? propertySurvey.uncovered_surface : '-'}}
+          </td>
+        </tr>
+
+        <!-- Superficie cubierta -->
+        <tr class="table-row">
+          <td>
+            Superficie cubierta
+          </td>
+          <td>
+            {{ propertySurvey.covered_surface ? propertySurvey.covered_surface : '-'}}
+          </td>
+        </tr>
+
+        <!-- Frente -->
+        <tr class="table-row">
+          <td>
+            Frente
+          </td>
+          <td>
+            {{ propertySurvey.front_surface ? propertySurvey.front_surface : '-'}}
+          </td>
+        </tr>
+
+        <!-- Fondo -->
+        <tr class="table-row">
+          <td>
+            Fondo
+          </td>
+          <td>
+            {{ propertySurvey.back_surface ? propertySurvey.back_surface : '-'}}
+          </td>
+        </tr>
+
+        <!-- Id Catastral -->
+        <tr class="table-row">
+          <td>
+            ID. Catastral 
+          </td>
+          <td>
+            {{ propertySurvey.property_identification ? propertySurvey.property_identification : '-'}}
+          </td>
+        </tr>
+
+        <!-- Partida Matriz -->
+        <tr class="table-row">
+          <td>
+            Partida Matriz
+          </td>
+          <td>
+            {{ propertySurvey.departure_matrix ? propertySurvey.departure_matrix : '-'}}
+          </td>
+        </tr>
+
+        <!-- Orientación -->
+        <tr class="table-row">
+          <td>
+            Orientación
+          </td>
+          <td>
+            {{ (propertySurvey.orientation && propertySurvey.orientation.name) ? propertySurvey.orientation.name : '-'}}
+          </td>
+        </tr>
+
+        <!-- Observaciones -->
+        <tr class="table-row">
+          <td>
+            Observaciones
+          </td>
+          <td>
+            {{ propertySurvey.observations ? propertySurvey.observations : '-'}}
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </app-listing-card>
+
+  <!-- Plantilla -->
+  <app-listing-card title="Plantilla" iconType="file" [loading]="loading">
+    <nz-table #basicTable nzTemplateMode="true">
+      <tbody>
+        <tr class="table-row">
+          <td>
+            Plantilla asignada
+          </td>
+          <td>
+            {{ (propertySurvey.form && propertySurvey.form.name) ? propertySurvey.form.name : '-'}}
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </app-listing-card>
+
+  <div *ngIf="propertySurvey.form">
+    <div>
+      <h1>Chequeo de plantilla</h1>
+
+      <!-- Descripción -->
+      <app-listing-card class="fields" title="Descripción" iconType="" [loading]="loading">
+        <nz-table #basicTable nzTemplateMode="true">
+          <tbody>
+            <tr class="table-row">
+              <td>
+                <span>Relevamiento fotográfico, detallado, en relación a los items valorados, no será necesario fotografiar sectores no evaluados. Se debe generar información precisa y justificada, que sea necesaria para la evaluación final.</span>
+              </td>
+            </tr>
+          </tbody>
+        </nz-table>
+      </app-listing-card>
+      
+
+      <div *ngFor="let page of pages">
+        <!-- Páginas de la plantilla -->
+        <app-listing-card class="fields" title={{page.name}} iconType="" [loading]="loading">
+          <nz-table #basicTable nzTemplateMode="true">
+            <tbody>
+              <!-- Campos de cada página -->
+              <tr class="table-row" *ngFor="let field of page.fields">
+                <td>
+                  <h4>{{ field.name }}</h4>
+                  <p>{{ field.description }}</p>
+                </td>
+              </tr>
+            </tbody>
+          </nz-table>
+        </app-listing-card>
+      </div>
+    </div>
+  </div>
+
+</div>

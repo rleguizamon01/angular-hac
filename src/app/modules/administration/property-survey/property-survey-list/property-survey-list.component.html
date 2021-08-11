@@ -1,0 +1,104 @@
+
+<div class="content">
+
+  <!-- Title -->
+  <div>
+    <h1> Mis relevamientos</h1>
+  </div>
+
+  <div class="wrapper">
+
+    <!-- Filters -->
+    <div id="filters-bar">
+
+      <div id="filter-left">
+        <input nz-input placeholder="Buscar" nzSize="default" #q (keyup)="filterAddress(q.value)"/>
+      </div>
+
+      <div id="filter-right">
+        <label id="status-text">Estado</label>
+        <nz-select id="filter-select" (ngModelChange)="filterStatus($event)" [(ngModel)]="status" nzAutoFocus="true">
+          <nz-option nzValue="" nzLabel="Todos"></nz-option>
+          <nz-option *ngFor="let status of propertySurveyStatuses" [nzValue]="status.id" [nzLabel]="status.name"></nz-option>
+        </nz-select>
+      </div>
+
+    </div>
+
+    <!-- Table -->
+    <nz-table 
+      #basicTable  
+      [nzData]="propertySurveys"
+      [nzFrontPagination]="false"
+      [nzLoading]="loading"
+      [nzTotal]="total"
+      [nzPageSize]="pageSize"
+      [nzPageIndex]="pageIndex"
+      (nzQueryParams)="getPropertySurveysPaginated();"
+    >
+      <thead>
+        <tr>
+          <th>Inmueble</th>
+          <th>Tipo</th>
+          <th>Encargado</th>
+          <th>Visita</th>
+          <th>Estado</th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let propertySurvey of propertySurveys">
+          <td><div>{{ propertySurvey.address }}</div> <div class="text-small">Creado: {{ propertySurvey.created_at | date:'dd-MM-yyyy hh:mm a' }}</div></td>
+          <td>{{ propertySurvey.property_type.name }}</td>
+          <td>{{ propertySurvey.user.given_name + ' ' +propertySurvey.user.family_name }}</td>
+          <td>
+            <i nz-icon nzType="calendar" nzTheme="outline"></i>
+            {{ propertySurvey.meeting_date | date:'dd-MM-yyyy hh:mm a' }}
+          </td>
+          <td>
+            <span [style.fontSize.px]="18" [style.color]="propertySurvey.property_survey_status.color"> ● </span>
+            <span class="text-small">{{ propertySurvey.property_survey_status.name }}</span>
+          </td>
+
+          <!-- Dropdown Actions -->
+          <td>
+            <a nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu" nzPlacement="bottomRight">
+              <i nz-icon nzType="more" nzTheme="outline" style="font-size:25px"></i>
+            </a>
+            <nz-dropdown-menu #menu="nzDropdownMenu">
+              <ul nz-menu>
+                <li nz-menu-item [routerLink]="['./', propertySurvey.id]">
+                  <i nz-icon nzType="eye" nzTheme="outline" class="dropdown-icon"></i>
+                  <span> Ver ficha </span>
+                </li>
+
+                <li nz-menu-divider></li>
+
+                <li nz-menu-item>
+                  <i nz-icon nzType="form" nzTheme="outline" class="dropdown-icon"></i>
+                  Crear informe
+                </li>
+
+                <li nz-menu-divider></li>
+
+                <li nz-menu-item>
+                  <i nz-icon nzType="edit" nzTheme="outline" class="dropdown-icon"></i>
+                  Editar
+                </li>
+
+                <li nz-menu-divider></li>
+
+                <li nz-menu-item>
+                  <i nz-icon nzType="delete" nzTheme="outline" class="dropdown-icon"></i>
+                  Borrar
+                </li>
+              </ul>
+            </nz-dropdown-menu>
+            
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>

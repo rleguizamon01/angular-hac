@@ -1,0 +1,41 @@
+<div class="container">
+  <nz-header>
+    <div class="logo"></div>
+      <ul nz-menu nzMode="horizontal">
+
+          <li nz-menu-item> 
+            <a routerLink="/administration/property-survey" routerLinkActive="active"> 
+              Relevamientos 
+            </a>
+          </li>
+
+          <li nz-menu-item>Plantilla</li>
+
+          <li nz-menu-item>Usuarios</li>
+
+          <span style="float:right">
+            <a nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu">
+              Rodo Leguizamón
+              <nz-avatar nzSize="small" nzIcon="user" style="margin-left:10px;margin-right:9px"></nz-avatar>
+              <i nz-icon nzType="down"></i>
+            </a>
+          </span>
+
+          <li nz-menu-item style="float:right">
+            <i nz-icon nzType="info-circle" nzTheme="outline" ></i>
+            Ayuda
+          </li>
+
+          <nz-dropdown-menu #menu="nzDropdownMenu">
+            <ul nz-menu>
+              <li nz-menu-item>Mi perfil</li>
+              <li nz-menu-divider></li>
+              <li nz-menu-item>Cerrar sesión</li>
+            </ul>
+          </nz-dropdown-menu>
+
+      </ul>
+  </nz-header>
+</div>
+
+

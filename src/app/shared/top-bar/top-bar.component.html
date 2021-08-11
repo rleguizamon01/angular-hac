@@ -1,0 +1,15 @@
+<div id="top-bar">
+  <div id="top-bar-left">
+    <button nz-button nzSize="large" nzType="default" nzShape="circle" [routerLink]="buttonRouteBack"><i nz-icon nzType="arrow-left" ></i></button>
+    <span id="main-text">{{ text }}</span>
+  </div>
+
+  <div id="top-bar-right">
+    <a routerLinkActive="active">
+      <button nz-button nzSize="large" nzShape="round" nzType="default" [routerLink]="buttonRoute">
+        <i nz-icon [nzType]="iconType"></i>
+        {{ buttonText}}
+      </button>
+    </a>
+  </div>
+</div>
