@@ -4,6 +4,7 @@ import { ListingCardComponent } from './listing-card/listing-card.component';
 import { ZorroModule } from '../zorro/zorro.module';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { RouterModule } from '@angular/router';
+import { HeaderTitleButtonComponent } from './header-title-button/header-title-button.component';
 
 
 @NgModule({
@@ -14,11 +15,13 @@ import { RouterModule } from '@angular/router';
   ],
   declarations: [
     ListingCardComponent,
-    TopBarComponent
+    TopBarComponent,
+    HeaderTitleButtonComponent
   ],
   exports: [
     ListingCardComponent,
-    TopBarComponent
+    TopBarComponent,
+    HeaderTitleButtonComponent
   ]
 })
 export class SharedModule { }

@@ -1,0 +1,13 @@
+<div id="header">
+  <div id="header-left">
+    <h3 nz-typography> {{ title }} </h3>
+  </div>
+
+  <div *ngIf="buttonShow" id="header-right">
+    <button nz-button nzType="primary" nzSize="large" nzShape="round" [routerLink]="buttonRoute">
+      <i nz-icon [nzType]="iconType"></i>
+      {{ buttonText }}
+    </button>
+  </div>
+
+</div>
