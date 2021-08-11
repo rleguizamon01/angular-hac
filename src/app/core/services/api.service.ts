@@ -11,20 +11,22 @@ export class ApiService {
 
   constructor(private httpClient: HttpClient) { }
 
+  apiUri: string = 'http://localhost/homeandcheck/api-homeandcheck/public/api/';
+
   headers = new HttpHeaders().set(
     'Authorization',
     `Bearer ${localStorage.getItem('token')}` || ''
   );
 
   get<T>(endpoint: string, params = {}): Observable<T>{
-    return this.httpClient.get<T>(environment.apiUri + endpoint, {
+    return this.httpClient.get<T>(this.apiUri + endpoint, {
       headers: this.headers,
       params,
     });
   }
 
   post<T>(endpoint: string, data: any): Observable<T>{
-    return this.httpClient.post<T>(environment.apiUri + endpoint, data, {
+    return this.httpClient.post<T>(this.apiUri + endpoint, data, {
       headers: this.headers,
     });
   }
