@@ -21,20 +21,20 @@ export class ApiService {
 
 
   get<T>(endpoint: string, params = {}): Observable<T>{
-    return this.httpClient.get<T>(this.apiUri + endpoint, {
+    return this.httpClient.get<T>(environment.apiUri + endpoint, {
       headers: this.headers,
       params,
     });
   }
 
   post<T>(endpoint: string, data: any): Observable<T>{
-    return this.httpClient.post<T>(this.apiUri + endpoint, data, {
+    return this.httpClient.post<T>(environment.apiUri + endpoint, data, {
       headers: this.headers,
     });
   }
 
   delete<T>(endpoint: string): Observable<T>{
-    return this.httpClient.delete<T>(this.apiUri + endpoint, {
+    return this.httpClient.delete<T>(environment.apiUri + endpoint, {
       headers: this.headers.append('Accept', 'application/json'),
     });
   }

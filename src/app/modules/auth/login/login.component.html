@@ -1,0 +1,54 @@
+<div class="container">
+    <div id="left-column">
+        <div class="logo"></div>
+        
+        <div>
+            <app-header-title-button
+                title="Iniciá sesión con tu cuenta"
+                [buttonShow]="false"    
+            >
+            </app-header-title-button>
+        </div>
+
+        <form nz-form [formGroup]="loginForm" class="login-form" (ngSubmit)="submitForm()">
+
+            <!-- Correo electrónico -->
+            <nz-form-item>
+            <nz-form-control nzErrorTip="Ingrese un correo electrónico">
+                <nz-input-group nzPrefixIcon="user">
+                <input type="text" nz-input formControlName="email" placeholder="Correo electrónico" />
+                </nz-input-group>
+            </nz-form-control>
+            </nz-form-item>
+
+            <!-- Contraseña -->
+            <nz-form-item>
+            <nz-form-control nzErrorTip="Ingrese una contraseña">
+                <nz-input-group nzPrefixIcon="lock">
+                <input type="password" nz-input formControlName="password" placeholder="Contraseña" />
+                </nz-input-group>
+            </nz-form-control>
+            </nz-form-item>
+
+            <!-- Recordar / Olvidar contraseña -->
+            <div nz-row class="login-form-margin">
+            <div nz-col [nzSpan]="12">
+                <label nz-checkbox formControlName="remember">
+                <span>Recordarme</span>
+                </label>
+            </div>
+            <div nz-col [nzSpan]="12">
+                <a class="login-form-forgot">Olvidé mi contraseña</a>
+            </div>
+            </div>
+
+            <!-- Botón iniciar sesión -->
+            <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'" [nzLoading]="loading">Iniciar sesión</button>
+        </form>
+
+        <nz-alert *ngIf="errorMessage" nzType="error" [nzMessage]="errorMessage" nzShowIcon></nz-alert>
+    </div>
+
+    <div id="mid-column"></div>
+    <div id="right-column"></div>
+</div>

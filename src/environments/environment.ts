@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   apiUri: 'http://localhost/homeandcheck/api-homeandcheck/public/api/',
+  client_secret: 'jMovvm5Z3RxgY11GkQug5zvcHcmsRmhDyzuBryWr',
 };
 
 /*
