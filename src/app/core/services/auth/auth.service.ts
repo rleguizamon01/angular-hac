@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { switchMap, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
+import { ApiService } from '../api.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,23 +12,18 @@ import { Observable, of } from 'rxjs';
 export class AuthService {
   private options: any;
 
-  constructor(private http: HttpClient) { 
-    this.options = {
-      headers: new HttpHeaders({
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${localStorage.getItem('token')}` || ''
-      })
-    };
-  }
+  constructor(
+    private http: HttpClient,
+    private api: ApiService
+    ) {}
 
   login(email: any, password: any): Observable<any> {
     console.log(email);
     console.log(password);
-    return this.http.post(environment.apiUri + 'login', {
-      email: email,
-      password: password,
-    }, this.options).pipe(
+    return this.api.post<any>('login', {
+      email: email.toString(),
+      password: password.toString(),
+    }).pipe(
       tap(
         response => {
           this.setToken(response)
@@ -45,7 +41,7 @@ export class AuthService {
 
   setRole(){
     console.log('fetch role')
-    return this.http.get(environment.apiUri + 'auth/user', this.options).pipe(
+    return this.api.get<any>('auth/user', {}).pipe(
       tap((response: any) => {
         for(let role of response.roles){
           localStorage.setItem('role', role.name);

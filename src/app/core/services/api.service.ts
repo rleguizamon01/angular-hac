@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -10,14 +9,13 @@ import { environment } from 'src/environments/environment';
 export class ApiService {
 
   constructor(
-    private httpClient: HttpClient) { }
+    private httpClient: HttpClient
+    ) { }
 
-  apiUri: string = 'https://back-hac.herokuapp.com/api/';
-
-  headers = new HttpHeaders().set(
-    'Authorization',
-    `Bearer ${localStorage.getItem('token')}` || ''
-  );
+  headers = new HttpHeaders({
+    'Accept': 'application/json',
+    'Authorization': `Bearer ${localStorage.getItem('token')}` || ''
+  });
 
 
   get<T>(endpoint: string, params = {}): Observable<T>{
