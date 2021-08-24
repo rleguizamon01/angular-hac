@@ -7,14 +7,293 @@
 > </app-top-bar>
 
 <div class="content">
-  <!-- Title -->
+  <!-- Header title-->
   <app-header-title-button
     title="Crear"
     [buttonShow]="false"
   ></app-header-title-button>
 
-<app-listing-card [loading]="false">
-  En proceso
+<app-listing-card class="create" [loading]="false" title="Relevamiento" iconType="file-add">
+
+  <form nz-form [formGroup]="createForm" (ngSubmit)="submitForm()">
+
+    <!-- Select assigned user -->
+    <nz-form-item>
+      <nz-form-label
+        [nzSm]="6"
+        [nzXs]="24"
+        nzFor="assigned-user-select"
+        nzRequired
+      >
+        <span>Encargado</span>
+      </nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Debe seleccionar un usuario">
+
+        <nz-select id="assigned-user-select" formControlName="assigned_user_id" nzPlaceHolder="Seleccionar encargado">
+          <nz-option *ngFor="let assignedUser of assignedUsers" [nzValue]="assignedUser.id" [nzLabel]="assignedUser.given_name + ' ' + assignedUser.family_name"></nz-option>
+        </nz-select>
+
+      </nz-form-control>
+    </nz-form-item>
+
+    <!-- DateTime Meeting date -->
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>Visita</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Debe seleccionar una fecha">
+        <nz-date-picker [nzShowTime]="{ nzFormat: 'HH:mm' }" formControlName="meeting_date" nzPlaceHolder="Seleccionar fecha" nzFormat="yyyy-MM-dd HH:mm"></nz-date-picker>
+      </nz-form-control>
+    </nz-form-item>
+
+    <!-- Contact -->
+    <nz-form-item>
+      <nz-form-label
+        [nzSm]="6"
+        [nzXs]="24"
+        nzFor="contact"
+        nzRequired
+      >
+        <span>Contacto</span>
+      </nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Debe ingresar un contacto">
+        <input nz-input id="contact" formControlName="contact" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <!-- Address -->
+    <nz-form-item>
+      <nz-form-label
+        [nzSm]="6"
+        [nzXs]="24"
+        nzFor="address"
+        nzRequired
+      >
+        <span>Dirección</span>
+      </nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Debe ingresar una dirección">
+        <input nz-input id="address" formControlName="address" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <!-- Select Property Type -->
+    <nz-form-item>
+      <nz-form-label
+        [nzSm]="6"
+        [nzXs]="24"
+        nzFor="property-type-select"
+        nzRequired
+      >
+        <span>Tipo</span>
+      </nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Debe seleccionar un tipo de propiedad">
+
+        <nz-select id="property-type-select" formControlName="property_type_id" nzPlaceHolder="Seleccionar tipo de propiedad">
+          <nz-option *ngFor="let propertyType of propertyTypes" [nzValue]="propertyType.id" [nzLabel]="propertyType.name"></nz-option>
+        </nz-select>
+
+      </nz-form-control>
+    </nz-form-item>
+
+    <!-- Latitude -->
+    <nz-form-item>
+      <nz-form-label
+        [nzSm]="6"
+        [nzXs]="24"
+        nzFor="latitude"
+      >
+        <span>Latitud</span>
+      </nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <input nz-input id="latitude" formControlName="latitude" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <!-- Longitude -->
+    <nz-form-item>
+      <nz-form-label
+        [nzSm]="6"
+        [nzXs]="24"
+        nzFor="longitude"
+      >
+        <span>Longitud</span>
+      </nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <input nz-input id="longitude" formControlName="longitude" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <!-- Typology -->
+    <nz-form-item>
+      <nz-form-label
+        [nzSm]="6"
+        [nzXs]="24"
+        nzFor="typology"
+      >
+        <span>Tipología</span>
+      </nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <input nz-input id="typology" formControlName="typology" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <!-- Uncovered surface -->
+    <nz-form-item>
+      <nz-form-label
+        [nzSm]="6"
+        [nzXs]="24"
+        nzFor="uncovered_surface"
+      >
+        <span>Sup. descubierta</span>
+      </nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <input nz-input id="uncovered_surface" formControlName="uncovered_surface" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <!-- Covered surface -->
+    <nz-form-item>
+      <nz-form-label
+        [nzSm]="6"
+        [nzXs]="24"
+        nzFor="covered_surface"
+      >
+        <span>Sup. cubierta</span>
+      </nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <input nz-input id="covered_surface" formControlName="covered_surface" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <!-- Front surface -->
+    <nz-form-item>
+      <nz-form-label
+        [nzSm]="6"
+        [nzXs]="24"
+        nzFor="front_surface"
+      >
+        <span>Frente</span>
+      </nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <input nz-input id="front_surface" formControlName="front_surface" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <!-- Back surface -->
+    <nz-form-item>
+      <nz-form-label
+        [nzSm]="6"
+        [nzXs]="24"
+        nzFor="back_surface"
+      >
+        <span>Fondo</span>
+      </nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <input nz-input id="back_surface" formControlName="back_surface" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <!-- Property Identification -->
+    <nz-form-item>
+      <nz-form-label
+        [nzSm]="6"
+        [nzXs]="24"
+        nzFor="property_identification"
+      >
+        <span>ID. Propiedad</span>
+      </nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <input nz-input id="property_identification" formControlName="property_identification" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <!-- Departure matrix -->
+    <nz-form-item>
+      <nz-form-label
+        [nzSm]="6"
+        [nzXs]="24"
+        nzFor="departure_matrix"
+      >
+        <span>Matriz</span>
+      </nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <input nz-input id="departure_matrix" formControlName="departure_matrix" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <!-- Select orientation -->
+    <nz-form-item>
+      <nz-form-label
+        [nzSm]="6"
+        [nzXs]="24"
+        nzFor="orientation-select"
+      >
+        <span>Orientación</span>
+      </nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+
+        <nz-select id="orientation-select" formControlName="orientation_id" nzPlaceHolder="Seleccionar orientación">
+          <nz-option *ngFor="let orientation of orientations" [nzValue]="orientation.id" [nzLabel]="orientation.name"></nz-option>
+        </nz-select>
+
+      </nz-form-control>
+    </nz-form-item>
+
+    <!-- Observations -->
+    <nz-form-item>
+      <nz-form-label
+        [nzSm]="6"
+        [nzXs]="24"
+        nzFor="observations"
+      >
+        <span>Observaciones</span>
+      </nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <input nz-input id="observations" formControlName="observations" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <!-- Select form -->
+    <nz-form-item>
+      <nz-form-label
+        [nzSm]="6"
+        [nzXs]="24"
+        nzFor="form-id-select"
+      >
+        <span>Formulario</span>
+      </nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+
+        <nz-select id="form-id-select" formControlName="form_id" nzPlaceHolder="Seleccionar formulario">
+          <nz-option *ngFor="let form of forms" [nzValue]="form.id" [nzLabel]="form.name"></nz-option>
+        </nz-select>
+
+      </nz-form-control>
+    </nz-form-item>
+
+    <!-- Select property survey status -->
+    <nz-form-item>
+      <nz-form-label
+        [nzSm]="6"
+        [nzXs]="24"
+        nzFor="property_survey_status_id"
+      >
+        <span>Estado</span>
+      </nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+
+        <nz-select id="status-select" formControlName="property_survey_status_id" nzPlaceHolder="Seleccionar estado">
+          <nz-option *ngFor="let propertySurveyStatus of propertySurveyStatuses" [nzValue]="propertySurveyStatus.id" [nzLabel]="propertySurveyStatus.name"></nz-option>
+        </nz-select>
+
+      </nz-form-control>
+    </nz-form-item>
+
+
+    <nz-form-item nz-row class="register-area">
+      <nz-form-control [nzSpan]="14" [nzOffset]="6">
+        <button nz-button nzType="primary">Crear</button>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
 
 </app-listing-card>
 

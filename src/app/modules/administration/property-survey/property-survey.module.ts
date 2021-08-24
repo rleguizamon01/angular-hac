@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { PropertySurveyListComponent } from './property-survey-list/property-survey-list.component';
 import { ZorroModule } from 'src/app/zorro/zorro.module';
 import { PropertySurveyRoutingModule } from './property-survey-routing.module';
@@ -7,7 +7,7 @@ import { PropertySurveyDetailComponent } from './property-survey-detail/property
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ApiService } from 'src/app/core/services/api.service';
 import { PropertySurveyEditComponent } from './property-survey-edit/property-survey-edit.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PropertySurveyCreateComponent } from './property-survey-create/property-survey-create.component';
 
 
@@ -17,7 +17,8 @@ import { PropertySurveyCreateComponent } from './property-survey-create/property
     CommonModule,
     ZorroModule,
     SharedModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   declarations: [
     PropertySurveyListComponent,
@@ -26,7 +27,8 @@ import { PropertySurveyCreateComponent } from './property-survey-create/property
     PropertySurveyCreateComponent
   ],
   providers: [
-    ApiService
+    ApiService,
+    DatePipe
   ]
 })
 export class PropertySurveyModule { }
