@@ -4,6 +4,7 @@ import { ApiService } from 'src/app/core/services/api.service';
 import { PropertySurvey } from 'src/app/interfaces/property-survey';
 import { timer } from 'rxjs';
 import { Page } from 'src/app/interfaces/page';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 
 @Component({
   selector: 'app-property-survey-detail',
@@ -19,10 +20,12 @@ export class PropertySurveyDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private api: ApiService
+    private api: ApiService,
+    private auth: AuthService
   ) {}
 
   ngOnInit() {
+    console.log(this.auth.getToken())
     const params = this.route.snapshot.paramMap;
     const propertySurveyId = Number(params.get('id'));
 

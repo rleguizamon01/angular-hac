@@ -17,7 +17,7 @@
   </div>
 
   <!-- Datos de la orden -->
-  <app-listing-card title="Datos de la orden" iconType="file-text" [loading]="loading">
+  <app-listing-card class="general-view" title="Datos de la orden" iconType="file-text" [loading]="loading">
     <nz-table #basicTable nzTemplateMode="true">
       <tbody>
         <!-- Creado el -->
@@ -65,14 +65,14 @@
   </app-listing-card>
 
   <!-- Locacion del inmueble -->
-  <app-listing-card title="Locación del inmueble" iconType="environment" [loading]="loading">
+  <app-listing-card class="general-view" title="Locación del inmueble" iconType="environment" [loading]="loading">
     <p id="location">
       {{ propertySurvey.address }}
     </p>
   </app-listing-card>
 
   <!-- Datos generales del inmueble -->
-  <app-listing-card title="Datos generales del inmueble" iconType="home" [loading]="loading">
+  <app-listing-card class="general-view" title="Datos generales del inmueble" iconType="home" [loading]="loading">
     <nz-table #basicTable nzTemplateMode="true">
       <tbody>
         <!-- Tipo -->
@@ -179,7 +179,7 @@
   </app-listing-card>
 
   <!-- Plantilla -->
-  <app-listing-card title="Plantilla" iconType="file" [loading]="loading">
+  <app-listing-card class="general-view" title="Plantilla" iconType="file" [loading]="loading">
     <nz-table #basicTable nzTemplateMode="true">
       <tbody>
         <tr class="table-row">
